@@ -108,4 +108,4 @@ class GovernmentMelonOrder(AbstractMelonOrder):
 class TooManyMelonsError(ValueError):
     """Raises error if order qty > 100"""
     def __init__(self):
-        super(TooManyMelonsError, self).__init__("Too many melons!")
+        super(TooManyMelonsError, self).__init__("No more than 100 melons!")
