@@ -22,9 +22,6 @@ class AbstractMelonOrder(object):
 
         total = (1 + self.tax) * self.qty * base_price
 
-        if self.order_type == 'international' and self.qty < 10:
-            total += 3
-
         return total
 
     def mark_shipped(self):
@@ -57,6 +54,16 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+    def get_total(self):
+        """Adds a flat fee of $3 to orders with less than 10 melons."""
+
+        total = super(InternationalMelonOrder, self).get_total()
+
+        if self.qty < 10:
+            total += 3
+
+        return total
 
 
 class GovernmentMelonOrder(AbstractMelonOrder):
