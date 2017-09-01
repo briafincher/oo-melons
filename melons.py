@@ -16,15 +16,18 @@ class AbstractMelonOrder(object):
         self.order_type = order_type
         self.tax = tax
 
+    def is_rush_hour(self, today):
+        if today.weekday() < 5:
+            return today.hour >= 8 and today.hour <= 11
+
     def get_base_price(self):
         """Picks a random integer between 5-9 as base price"""
 
         base_price = randint(5, 10)
         today = datetime.datetime.today()
+        if self.is_rush_hour(today):
+            base_price += 4
 
-        if today.weekday() < 5:
-            if today.hour >= 8 and today.hour <= 11:
-                base_price += 4
         return base_price
 
     def get_total(self):
